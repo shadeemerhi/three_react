@@ -24,11 +24,17 @@
     <!-- <script src="main.js"></script> -->
     <script>
 
-      const scene = new THREE.Scene();
+      let scene, camera, renderer, sphere;
 
-      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      // function init() {
 
-      const renderer = new THREE.WebGLRenderer({ antialias: true });
+      // }
+
+      scene = new THREE.Scene();
+
+      camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+      renderer = new THREE.WebGLRenderer({ antialias: true });
       renderer.setClearColor('#e5e5e5');
       renderer.setSize(window.innerWidth, window.innerHeight);
 
@@ -45,9 +51,40 @@
       renderer.render(scene, camera);
 
       const geometry = new THREE.SphereGeometry( 1, 10, 10 );
-      const material = new THREE.MeshBasicMaterial( {color: 0xffff00} );
-      const sphere = new THREE.Mesh( geometry, material );
+      const texture = new THREE.TextureLoader().load('textures/carbon.png');
+      const material = new THREE.MeshBasicMaterial( { map: texture } );
+      sphere = new THREE.Mesh( geometry, material );
+      sphere2 = new THREE.Mesh( geometry, material );
       scene.add( sphere );
+      // scene.add( sphere2 );
+
+      camera.position.z = 15;
+      camera.position.x = -3;
+      camera.position.y = 3;
+      
+      let dir = -1;
+
+      function onClick() {
+        dir *= -1;
+        camera.position.z += 2*dir;
+        camera.position.x += 2*dir;
+        camera.position.y += 2*dir;
+      }
+
+      window.addEventListener('click', onClick, false)
+
+      function animate() {
+        requestAnimationFrame(animate);
+        sphere.rotation.x += 0.1;
+        sphere.rotation.y += 0.1;
+
+        renderer.render(scene, camera);
+      }
+
+      requestAnimationFrame(animate);
+
+      // animate();
+
 
     </script>
   </body>
