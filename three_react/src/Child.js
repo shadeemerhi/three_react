@@ -6,7 +6,7 @@ import * as THREE from 'three';
 const Child = () => {
     console.log('rendering')
 
-    const { scene } = useContext(StudioContext);
+    const { scene, mount } = useContext(StudioContext);
     // let cube;
 
     useEffect(() => {
@@ -24,8 +24,7 @@ const Child = () => {
 
 
     return (
-        <div>
-        </div>
+        <div ref={mount}></div>
     )
 }
 

@@ -65,12 +65,13 @@ const App = () => {
     const value = {
         scene,
         renderer,
-        camera
+        camera,
+        mount
     }
 
     return (
         <StudioContext.Provider value={value}>
-            <div ref={mount} className="App"></div>
+            {/* <div ref={mount} className="App"></div> */}
             <Child />
         </StudioContext.Provider>
     );
