@@ -1,8 +1,10 @@
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
-import "./App.css";
+import Child from './Child';
+
+export const StudioContext = React.createContext();
 
 const App = () => {
 
@@ -21,14 +23,12 @@ const App = () => {
         1000
     );
     const renderer = new THREE.WebGLRenderer();
-    const geometry = new THREE.BoxGeometry(1, 1, 1);
-    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-    const cube = new THREE.Mesh(geometry, material);
+    // const cube = new THREE.Mesh(geometry, material);
     renderer.setSize(window.innerWidth, window.innerHeight);
 
     useEffect(() => {
         // document.body.appendChild( renderer.domElement );
-        scene.add(cube);
+        // scene.add(cube);
         camera.position.z = 5;
         mount.current.appendChild(renderer.domElement);
 
@@ -38,16 +38,14 @@ const App = () => {
 
         const animate = function () {
         requestAnimationFrame(animate);
-        cube.rotation.x += 0.01;
-        cube.rotation.y += 0.01;
+        // cube.rotation.x += 0.01;
+        // cube.rotation.y += 0.01;
         renderer.render(scene, camera);
         };
 
         animate();
         setupEventListeners();
     });
-
-
 
     const setupEventListeners = () => {
         window.addEventListener("resize", () => {
@@ -65,7 +63,18 @@ const App = () => {
         });
     };
 
-    return <div ref={mount} className="App"></div>;
+    const value = {
+        scene,
+        renderer,
+        camera
+    }
+
+    return (
+        <StudioContext.Provider value={value}>
+            <div ref={mount} className="App"></div>
+            <Child />
+        </StudioContext.Provider>
+    );
 }
 
 export default App;
