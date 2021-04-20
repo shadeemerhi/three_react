@@ -2,29 +2,24 @@ import React, { useContext, useEffect } from 'react';
 import { StudioContext } from './App';
 
 import * as THREE from 'three';
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+
+// Utility functions
+import { addItems } from './functions/sceneInit';
+
 
 const Child = () => {
     console.log('rendering')
 
-    const { scene, mount } = useContext(StudioContext);
-    // let cube;
+    const value = useContext(StudioContext);
+    console.log('value', value);
 
     useEffect(() => {
-        addItems();
-    });
-
-
-    const addItems = () => {
-        const geometry = new THREE.BoxGeometry(1, 1, 1);
-        const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-        const cube = new THREE.Mesh(geometry, material);
-        scene.add(cube);
-    }
-
-
+        addItems(value);
+    }, []);
 
     return (
-        <div ref={mount}></div>
+        <div ref={value.mount}></div>
     )
 }
 

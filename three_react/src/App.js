@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
@@ -7,6 +7,8 @@ import Child from './Child';
 export const StudioContext = React.createContext();
 
 const App = () => {
+
+    const [controls, setControls] = useState(null);
 
     const sizes = {
         width: window.innerWidth,
@@ -19,32 +21,48 @@ const App = () => {
         75,
         window.innerWidth / window.innerHeight,
         0.1,
-
         1000
     );
     const renderer = new THREE.WebGLRenderer();
-    // const cube = new THREE.Mesh(geometry, material);
     renderer.setSize(window.innerWidth, window.innerHeight);
 
     useEffect(() => {
-        // document.body.appendChild( renderer.domElement );
-        // scene.add(cube);
         camera.position.z = 5;
+
         mount.current.appendChild(renderer.domElement);
-
-        // Controls
-        const controls = new OrbitControls(camera, mount.current);
-        controls.enableDamping = true;
-
-        const animate = function () {
-            controls.update();
-            requestAnimationFrame(animate);
-            renderer.render(scene, camera);
-        };
+        setControls(new OrbitControls(camera, mount.current))
 
         animate();
+
+        console.log('value in ue', value);
+
         setupEventListeners();
-    });
+    }, []);
+
+    const animate = () => {
+        // console.log('calling animate', controls);
+        if(controls) controls.update();
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+    };
+
+
+
+    useEffect(() => {
+        
+        if(!controls) return;
+        console.log('enabling damping');
+        controls.enableDamping = true;
+        requestAnimationFrame(animate);
+
+    }, [controls]);
+
+    // useEffect(() => {
+    //     if(!mount.current) return;
+    //     controls = new OrbitControls(camera, mount.current);
+    //     controls.enableDamping = true;
+
+    // }, [mount.current])
 
     const setupEventListeners = () => {
         window.addEventListener("resize", () => {
@@ -66,12 +84,12 @@ const App = () => {
         scene,
         renderer,
         camera,
-        mount
+        mount,
+        controls
     }
 
     return (
         <StudioContext.Provider value={value}>
-            {/* <div ref={mount} className="App"></div> */}
             <Child />
         </StudioContext.Provider>
     );
