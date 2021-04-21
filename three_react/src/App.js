@@ -4,7 +4,8 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
 import Child from './Child';
 
-import { addItems, setupScene } from './functions/sceneInit';
+import { setupScene } from './functions/scene_setup/sceneInit';
+import { addItems } from './functions/scene_items/itemInit';
 
 export const StudioContext = React.createContext();
 
@@ -32,9 +33,9 @@ const App = () => {
     useEffect(() => {
 
         setupScene(self, mount);
-        addItems(self)
+        addItems(self);
 
-        console.log('after stuff', self);
+        console.log('after adding', self);
     }, []);
 
     return (

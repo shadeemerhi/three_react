@@ -5,7 +5,7 @@ import * as THREE from 'three';
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
 // Utility functions
-import { addItems } from './functions/sceneInit';
+import { addItems } from './functions/scene_setup/sceneInit';
 
 
 const Child = () => {
