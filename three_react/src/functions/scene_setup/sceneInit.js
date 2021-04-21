@@ -24,12 +24,12 @@ export const setupScene = (self, mount) => {
     self.current.camera.position.z = 5;
 
     mount.current.appendChild(self.current.renderer.domElement);
-    const controls = new OrbitControls(self.current.camera, mount.current);
-    controls.enableDamping = true;
+    self.current.controls = new OrbitControls(self.current.camera, mount.current);
+    self.current.controls.enableDamping = true;
 
 
     const animate = () => {
-        controls.update();
+        self.current.controls.update();
         requestAnimationFrame(animate);
         self.current.renderer.render(self.current.scene, self.current.camera);
     };
