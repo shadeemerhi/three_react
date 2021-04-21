@@ -18,9 +18,7 @@ const Child = () => {
         addItems(value);
     }, []);
 
-    return (
-        <div ref={value.mount}></div>
-    )
+    return <div></div>
 }
 
 export default Child;
