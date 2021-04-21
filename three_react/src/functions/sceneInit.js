@@ -1,27 +1,40 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
-export const setupScene = (mount, setSceneLoaded) => {
+export const setupScene = (self, mount) => {
+
+    console.log('self', self)
 
     const sizes = {
         width: window.innerWidth,
         height: window.innerHeight,
     };
 
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(
+    // const scene = new THREE.Scene();
+    self.current.scene = new THREE.Scene();
+    self.current.camera = new THREE.PerspectiveCamera(
         75,
         window.innerWidth / window.innerHeight,
         0.1,
         1000
     );
-    const renderer = new THREE.WebGLRenderer();
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    // const camera = new THREE.PerspectiveCamera(
+    //     75,
+    //     window.innerWidth / window.innerHeight,
+    //     0.1,
+    //     1000
+    // );
+    self.current.renderer = new THREE.WebGLRenderer();
+    // const renderer = new THREE.WebGLRenderer();
 
-    camera.position.z = 5;
+    // self.renderer.setSize(window.innerWidth, window.innerHeight);
+    self.current.renderer.setSize(window.innerWidth, window.innerHeight)
 
-    mount.current.appendChild(renderer.domElement);
-    const controls = new OrbitControls(camera, mount.current);
+    // self.camera.position.z = 5;
+    self.current.camera.position.z = 5;
+
+    mount.current.appendChild(self.current.renderer.domElement);
+    const controls = new OrbitControls(self.current.camera, mount.current);
     controls.enableDamping = true;
 
     // Not sure if this will work
@@ -33,7 +46,8 @@ export const setupScene = (mount, setSceneLoaded) => {
         // if(controls) controls.update();
         controls.update();
         requestAnimationFrame(animate);
-        renderer.render(scene, camera);
+        // self.renderer.render(self.scene, self.camera);
+        self.current.renderer.render(self.current.scene, self.current.camera);
     };
 
     const setupEventListeners = () => {
@@ -43,37 +57,24 @@ export const setupScene = (mount, setSceneLoaded) => {
         sizes.height = window.innerHeight;
 
         // Update camera
-        camera.aspect = sizes.width / sizes.height;
-        camera.updateProjectionMatrix();
+        self.current.camera.aspect = sizes.width / sizes.height;
+        self.current.camera.updateProjectionMatrix();
 
         // Update renderer
-        renderer.setSize(sizes.width, sizes.height);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        self.current.renderer.setSize(sizes.width, sizes.height);
+        self.current.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         });
     };
 
     animate();
     setupEventListeners();
 
-    setSceneLoaded(true);
-
-    console.log(scene, camera, controls)
-
-    return {
-        scene,
-        camera,
-        controls
-    }
-
-    // return Promise.resolve('resolved')
-    // return 'hello'
-
 }
 
-export const addItems = (value) => {
+export const addItems = (self) => {
     console.log('running')
     const geometry = new THREE.BoxGeometry(1, 1, 1);
     const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
     const cube = new THREE.Mesh(geometry, material);
-    value.scene.add(cube);
+    self.current.scene.add(cube);
 }
