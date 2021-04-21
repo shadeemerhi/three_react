@@ -1,9 +1,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
-export const setupScene = (mount, setControls) => {
-
-    console.log('values we need', mount, setControls);
+export const setupScene = (mount, setSceneLoaded) => {
 
     const sizes = {
         width: window.innerWidth,
@@ -57,11 +55,18 @@ export const setupScene = (mount, setControls) => {
     animate();
     setupEventListeners();
 
+    setSceneLoaded(true);
+
+    console.log(scene, camera, controls)
+
     return {
         scene,
         camera,
         controls
     }
+
+    // return Promise.resolve('resolved')
+    // return 'hello'
 
 }
 

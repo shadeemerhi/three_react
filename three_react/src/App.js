@@ -10,13 +10,16 @@ export const StudioContext = React.createContext();
 
 const App = () => {
 
-    const [controls, setControls] = useState(null);
+    // const [controls, setControls] = useState(null);
+    const [sceneLoaded, setSceneLoaded] = useState(false);
 
     // const sizes = {
     //     width: window.innerWidth,
     //     height: window.innerHeight,
     // };
     const mount = useRef(null);
+    const scene = useRef();
+    const controls = useRef();
 
     // const scene = new THREE.Scene();
     // const camera = new THREE.PerspectiveCamera(
@@ -30,15 +33,36 @@ const App = () => {
 
     useEffect(() => {
         
-        // Call scene setup function; pass setControls function?
-        // const getSceneData = async () => {
-        //     const sceneVars = await setupScene(mount, setControls);
+        // const getSceneData = () => {
 
+        //     const vars = setupScene(mount, setSceneLoaded);
+        //     return vars;
+
+        //     // try {
+        //     //     const vars = setupScene();
+        //     //     return vars;
+
+        //     // } catch(error) {
+        //     //     console.log('error', error)
+        //     // }
+        //     // console.log('sceneVars', sceneVars)
+        //     // return vars;
         // }
 
-        const sceneVars = setupScene(mount, setControls);
+        // const sceneVars = getSceneData();
+
+        const sceneVars = setupScene(mount, setSceneLoaded);
+        scene.current = sceneVars.scene
+        controls.current = sceneVars.controls
+
+        console.log('scene ref', scene)
+        // const { scene, camera, controls } = sceneVars;
+        
+        console.log('sceneVars', sceneVars);
+
+        // sceneVars = setupScene(mount, setControls);
         addItems(sceneVars)
-        console.log(sceneVars);
+        // console.log(sceneVars);
 
         // console.log(sceneVars);
         
@@ -90,12 +114,15 @@ const App = () => {
     // };
 
     const value = {
-        // scene,
+        scene,
         // renderer,
         // camera,
         mount,
-        // controls
+        controls
     }
+
+    // console.log('value before return', value, scene)
+    console.log('value before return', value);
 
     return (
         <StudioContext.Provider value={value}>

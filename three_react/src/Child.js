@@ -14,9 +14,9 @@ const Child = () => {
     const value = useContext(StudioContext);
     console.log('value', value);
 
-    useEffect(() => {
-        addItems(value);
-    }, []);
+    // useEffect(() => {
+    //     addItems(value);
+    // }, []);
 
     return <div></div>
 }
