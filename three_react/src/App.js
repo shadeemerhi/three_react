@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-
-import Child from './Child';
+// import * as THREE from "three";
+// import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
 import { setupScene } from './functions/scene_setup/sceneInit';
 import { addItems } from './functions/scene_items/itemInit';
