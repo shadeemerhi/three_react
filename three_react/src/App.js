@@ -13,7 +13,6 @@ const App = () => {
     const initSelf = {
         scene: null,
         camera: null,
-        controls: null,
     }
 
     const self = useRef(initSelf);
@@ -22,8 +21,6 @@ const App = () => {
 
         setupScene(self, mount);
         addItems(self);
-
-        console.log('after adding', self);
     }, []);
 
     return <div ref={mount}></div>
