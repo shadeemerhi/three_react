@@ -32,6 +32,7 @@ export const setupScene = (self, mount) => {
         self.current.controls.update();
         requestAnimationFrame(animate);
         self.current.renderer.render(self.current.scene, self.current.camera);
+        // self.current.animationLoop = animate;
     };
 
     const setupEventListeners = () => {

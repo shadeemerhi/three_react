@@ -13,6 +13,7 @@ const App = () => {
     const initSelf = {
         scene: null,
         camera: null,
+        animationLoop: null
     }
 
     const self = useRef(initSelf);
