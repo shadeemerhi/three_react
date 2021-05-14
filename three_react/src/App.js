@@ -11,17 +11,45 @@ const App = () => {
     const mount = useRef(null);
 
     const initSelf = {
+        // Three.js
         scene: null,
+        sceneVars: {
+            dev: false,
+            enableBoxHelpers: false,
+            disableEnv: false,
+            showMirrorSphere: false,
+            mouseActions: true,
+            mouseSelect: true,
+            dragCounter: 0,
+            enableLightHelpers: false,
+            updateNeeded: true,
+        },
         camera: null,
-        animationLoop: null,
+        renderer: null,
+        clock: null,
+        cameraControls: null,
         loader: null,
-        textureLoader: null,
         dracoLoader: null,
+        textureLoader: null,
+        cubeTextureLoader: null,
+        raycaster: null,
+        composer: null,
+        outlinePass: null,
 
+        // Wall variables
+        wallTileCount: 0,
+        wetWallTileCount: 0,
+        glassWallCount: 0,
+        mirrorWallCount: 0,
+        metalWallCount: 0,
 
-        dev: false,
+        baseboardMeshes: [],
 
-    }
+        // Interaction
+        mouse: null,
+        left: null,
+        top: null,
+    };
 
     const self = useRef(initSelf);
 
