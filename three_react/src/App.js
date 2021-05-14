@@ -13,7 +13,14 @@ const App = () => {
     const initSelf = {
         scene: null,
         camera: null,
-        animationLoop: null
+        animationLoop: null,
+        loader: null,
+        textureLoader: null,
+        dracoLoader: null,
+
+
+        dev: false,
+
     }
 
     const self = useRef(initSelf);

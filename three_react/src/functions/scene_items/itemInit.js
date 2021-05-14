@@ -428,7 +428,6 @@ export const addItems = (self) => {
         console.log(cubeInScene);
         cubeInScene.material.color.set('#ff0000');
         console.log(self.current.renderer.info)
-        // cube.material.color.set('#ff0000');
     }, 2000);
 
     setTimeout(() => {
@@ -439,24 +438,4 @@ export const addItems = (self) => {
         object.material.color.set('#0000ff');
         console.log(self.current.renderer.info)
     }, 4000);
-
-    // addCubes(self, [{}, {}, {}]);
-
-    // const cubeFromScene = self.current.scene.getObjectByName('lcdcdolCube');
-    // console.log('we found', cubeFromScene);
-
-
 }
-
-
-// Showing that duplicate objects can be added if created as different variables
-// const addCubes = (self, objects) => {
-
-//     for(const object of objects) {
-//         const geometry = new THREE.BoxGeometry(1, 1, 1);
-//         const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-//         const cube = new THREE.Mesh(geometry, material);
-//         self.current.scene.add(cube);
-
-//     }
-// }
